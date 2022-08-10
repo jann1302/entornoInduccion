@@ -1,0 +1,302 @@
+<?php
+    header('X-Frame-Options: GOFORIT'); 
+?>
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Escenario Productos Digitales</title>
+	<script src="js/aframe.min.js"></script>
+	<style type="text/css">
+		#loading {
+			position: fixed;
+			width: 100vw;
+			height: 100vh;
+			z-index: 10000;
+			background-color: white;
+		}
+		
+	</style>
+</head>
+<body>
+	<div id="loading">
+	    <button id="boton1" style="margin-left: 45%;margin-top: 2%">
+		Iniciar Experiencia - Sesi&oacute;n 1
+		</button><br>
+		<button id="boton2" style="margin-left: 45%;margin-top: 5%">
+		Iniciar Experiencia - Sesi&oacute;n 2
+		</button><br>
+		<button id="boton3" style="margin-left: 45%;margin-top: 5%">
+		Iniciar Experiencia - Sesi&oacute;n 3
+		</button><br>
+		<button id="boton4" style="margin-left: 45%;margin-top: 5%">
+		Iniciar Experiencia - Sesi&oacute;n 4
+		</button><br>
+		<button id="boton5" style="margin-left: 45%;margin-top: 5%">
+		Iniciar Experiencia - Sesi&oacute;n 5
+		</button><br>
+		<button id="boton6" style="margin-left: 45%;margin-top: 5%">
+		Iniciar Experiencia - Sesi&oacute;n 6
+		</button><br>
+		<button id="boton7" style="margin-left: 45%;margin-top: 5%">
+		Iniciar Experiencia - Sesi&oacute;n 7
+		</button><br>
+		<button id="boton8" style="margin-left: 45%;margin-top: 5%">
+		Iniciar Experiencia - Sesi&oacute;n 8
+		</button><br>
+
+	</div>
+
+	<div id="induccion" style="position: fixed;	width: 100vw; height: 100vh; z-index: 10000; background-color: white; display: none" >
+	    <iframe id="paginas"  style="position: fixed;	width: 100vw; height: 100vh; z-index: 10000; background-color: white; border:none;"></iframe>
+	</div>
+
+	<audio id="sonido" autoplay src=""></audio>
+
+	<a-scene vr-mode-ui="enabled: false" id=neurtro>
+
+		<a-sky color="black" ></a-sky>
+
+		<a-circle color="black" material="opacity:0.6" radius="60" position="0 -10 0" rotation="-90 0 0" ></a-circle>
+
+		<!--pantalla  donde se muestran las acciones-->
+		<a-image  src="" height="10%" width="10%"  position="0 2 -8"  rotation="0 0 0" ></a-image>
+       
+	</a-scene>
+<script>
+//variables de estimulos dentro del arreglo de secuencias//
+	    var neutro='img/negro.png';
+	    var evaluacion='img/sam.png';
+	    var bienvenida='img/inicio.png';
+	    var ojosCerrados='img/OC.png';
+	    var ojosAbiertos='img/OA.png';
+	    var instrucciones='img/instruccion.png';
+	    var PrePage='img/negro2.png';
+	    var fin='img/finalizar.png'; 
+		//-------------------Sesión 1 -------------------
+		var p1 ='https://www.codewars.com/';
+		var p2 ='https://www.packtpub.com/';
+		var acciones1=new Array([bienvenida],[ojosCerrados],[instrucciones],[ojosAbiertos],[neutro],[PrePage],[p1],[evaluacion],[neutro],[p2],[evaluacion],[neutro],[fin]);  
+		//-------------------Sesión 2 -------------------
+ 		var p3 ='https://super.walmart.com.mx/';
+ 		var p4 ='http://pullman.mx/Index.php#/';
+ 		var acciones2=new Array([bienvenida],[ojosCerrados],[instrucciones],[ojosAbiertos],[neutro],[PrePage],[p3],[evaluacion],[neutro],[p4],[evaluacion],[neutro],[fin]);  
+		//-------------------Sesión 3 -------------------
+		var p5 ='https://cenidet.tecnm.mx/'; 
+		var p6 ='https://www.compucalitv.com/';
+		var acciones3=new Array([bienvenida],[ojosCerrados],[instrucciones],[ojosAbiertos],[neutro],[PrePage],[p5],[evaluacion],[neutro],[p6],[evaluacion],[neutro],[fin]);  
+		//-------------------Sesión 4 -------------------
+		var p7 ='https://www.nintendo.com/'; 
+		var p8 ='http://www.imss.gob.mx/';
+		var acciones4=new Array([bienvenida],[ojosCerrados],[instrucciones],[ojosAbiertos],[neutro],[PrePage],[p7],[evaluacion],[neutro],[p8],[evaluacion],[neutro],[fin]);  
+		//-------------------Sesión 5 -------------------
+		var p9 ='https://www.amazon.com.mx/'; 
+		var p10 ='https://www.elsevier.com/es-mx';
+		var acciones5=new Array([bienvenida],[ojosCerrados],[instrucciones],[ojosAbiertos],[neutro],[PrePage],[p9],[evaluacion],[neutro],[p10],[evaluacion],[neutro],[fin]);  
+		//-------------------Sesión 6 -------------------
+		var p11 ='https://www.amazon.com.mx/'; //https://ddtech.mx/
+		var p12 ='https://www.liverpool.com.mx/';
+		var acciones6=new Array([bienvenida],[ojosCerrados],[instrucciones],[ojosAbiertos],[neutro],[PrePage],[p11],[evaluacion],[neutro],[p12],[evaluacion],[neutro],[fin]);  
+		//-------------------Sesión 7 -------------------
+		var p13 ='https://es.aliexpress.com/'; 
+		var p14 ='https://www.edx.org/';
+		var acciones7=new Array([bienvenida],[ojosCerrados],[instrucciones],[ojosAbiertos],[neutro],[PrePage],[p13],[evaluacion],[neutro],[p14],[evaluacion],[neutro],[fin]);  
+		//-------------------Sesión 8 -------------------
+		var p15 ='https://www.udemy.com/';
+		var p16 ='https://prezi.com/';
+		var acciones8=new Array([bienvenida],[ojosCerrados],[instrucciones],[ojosAbiertos],[neutro],[PrePage],[p15],[evaluacion],[neutro],[p16],[evaluacion],[neutro],[fin]);  
+		var acciones=0 ;
+
+
+
+		document.querySelector("#boton1").onclick = function() {
+  			document.querySelector("#loading").style.display = "none"
+  			document.querySelector("#induccion").style.display = "none"
+  			acciones=acciones1;
+  			cambiar(acciones);
+		}
+		document.querySelector("#boton2").onclick = function() {
+  			document.querySelector("#loading").style.display = "none"
+  			document.querySelector("#induccion").style.display = "none"
+  			acciones=acciones2;
+  			cambiar(acciones);
+		}
+		document.querySelector("#boton3").onclick = function() {
+  			document.querySelector("#loading").style.display = "none"
+  			document.querySelector("#induccion").style.display = "none"
+  			acciones=acciones3;
+  			cambiar(acciones);
+		}
+		document.querySelector("#boton4").onclick = function() {
+  			document.querySelector("#loading").style.display = "none"
+  			document.querySelector("#induccion").style.display = "none"
+  			acciones=acciones4;
+  			cambiar(acciones);
+		}
+		document.querySelector("#boton5").onclick = function() {
+  			document.querySelector("#loading").style.display = "none"
+  			document.querySelector("#induccion").style.display = "none"
+  			acciones=acciones5;
+  			cambiar(acciones);
+		}
+		document.querySelector("#boton6").onclick = function() {
+  			document.querySelector("#loading").style.display = "none"
+  			document.querySelector("#induccion").style.display = "none"
+  			acciones=acciones6;
+  			cambiar(acciones);
+		}
+		document.querySelector("#boton7").onclick = function() {
+  			document.querySelector("#loading").style.display = "none"
+  			document.querySelector("#induccion").style.display = "none"
+  			acciones=acciones7;
+  			cambiar(acciones);
+		}
+		document.querySelector("#boton8").onclick = function() {
+  			document.querySelector("#loading").style.display = "none"
+  			document.querySelector("#induccion").style.display = "none"
+  			acciones=acciones8;
+  			cambiar(acciones);
+		}
+// //variables de estimulos dentro del arreglo de secuencias//
+// 	    var neutro='img/negro.png';
+// 	    var evaluacion='img/sam.png';
+// 	    var bienvenida='img/inicio.png';
+// 	    var ojosCerrados='img/OC.png';
+// 	    var ojosAbiertos='img/OA.png';
+// 	    var instrucciones='img/instruccion.png';
+// 	    var PrePage='img/negro2.png';
+// 	    var fin='img/finalizar.png'; 
+// //-------------------Sesión 1 -------------------
+// 		var p1 ='https://www.codewars.com/';
+// 		var p2 ='https://www.packtpub.com/';
+// 		var acciones=new Array([bienvenida],[ojosCerrados],[instrucciones],[ojosAbiertos],[neutro],[PrePage],[p1],[evaluacion],[neutro],[p2],[evaluacion],[neutro],[fin]);  
+ 
+//-------------------Sesión 2 -------------------
+		// var p1 ='https://super.walmart.com.mx/';
+		// var p2 ='http://pullman.mx/Index.php#/';
+		// var acciones=new Array([bienvenida],[ojosCerrados],[instrucciones],[ojosAbiertos],[neutro],[PrePage],[p1],[evaluacion],[neutro],[p2],[evaluacion],[neutro],[fin]);
+ 
+//-------------------Sesión 3 -------------------
+		// var p1 ='https://cenidet.tecnm.mx/'; 
+		// var p2 ='https://www.compucalitv.com/';
+		// var acciones=new Array([bienvenida],[ojosCerrados],[instrucciones],[ojosAbiertos],[neutro],[PrePage],[p1],[evaluacion],[neutro],[p2],[evaluacion],[neutro],[fin]);
+
+//-------------------Sesión 4 -------------------
+		// var p1 ='https://www.nintendo.com/'; 
+		// var p2 ='http://www.imss.gob.mx/'; 
+		// var acciones=new Array([bienvenida],[ojosCerrados],[instrucciones],[ojosAbiertos],[neutro],[PrePage],[p1],[evaluacion],[neutro],[p2],[evaluacion],[neutro],[fin]);
+
+//-------------------Sesión 5 -------------------
+		// var p1 ='https://www.amazon.com.mx/'; 
+		// var p2 ='https://www.elsevier.com/es-mx';
+		// var acciones=new Array([bienvenida],[ojosCerrados],[instrucciones],[ojosAbiertos],[neutro],[PrePage],[p1],[evaluacion],[neutro],[p2],[evaluacion],[neutro],[fin]);
+
+//-------------------Sesión 6 -------------------
+		// var p1 ='https://ddtech.mx/';
+		// var p2 ='https://www.liverpool.com.mx/';
+		// var acciones=new Array([bienvenida],[ojosCerrados],[instrucciones],[ojosAbiertos],[neutro],[PrePage],[p1],[evaluacion],[neutro],[p2],[evaluacion],[neutro],[fin]);
+
+//-------------------Sesión 7 -------------------
+		// var p1 ='https://es.aliexpress.com/'; 
+		// var p2 ='https://www.edx.org/'; 
+		// var acciones=new Array([bienvenida],[ojosCerrados],[instrucciones],[ojosAbiertos],[neutro],[PrePage],[p1],[evaluacion],[neutro],[p2],[evaluacion],[neutro],[fin]);
+
+//-------------------Sesión 8 ------------------- 
+		// var p1 ='https://www.udemy.com/';
+		// var p2 ='https://prezi.com/'; 
+		// var acciones=new Array([bienvenida],[ojosCerrados],[instrucciones],[ojosAbiertos],[neutro],[PrePage],[p1],[evaluacion],[neutro],[p2],[evaluacion],[neutro],[fin]);
+
+
+		//var acciones=new Array([bienvenida],[ojosCerrados],[instrucciones],[ojosAbiertos],[neutro],[PrePage],[p5],[evaluacion],[neutro],[p6],[evaluacion],[neutro],[fin]);
+		//var acciones=new Array([bienvenida],[ojosCerrados],[instrucciones],[ojosAbiertos],[neutro],[PrePage],[p8],[evaluacion],[neutro],[fin]);
+		
+		
+//////////////////////////////////////////////////////////////////////////////////////////// 
+    // * Funcion para cambiar la i 
+
+    var imagen=document.querySelector('a-image');
+    var sonido=document.getElementById('sonido');
+    var page=document.getElementById('paginas');
+    //var mostrar=(page.contentWindow || page.contentDocument);
+
+
+var accion = 0;//contador de cambio de posicion
+function cambiar(acciones){
+	// var acciones=acciones
+	if(acciones.length==accion){
+		document.querySelector("#loading").style.display = "initial"
+		
+	}
+	accionActual=acciones[accion].toString();
+	//imagen.setAttribute('src', accionActual); //Esto coloca la imagen correspondiente
+	
+	
+	document.querySelector("#induccion").style.display = "none"
+	accion=accion+1;
+	switch(accionActual) {
+		case PrePage:			
+			sonido.src= 'narrativas/5.mp4' ;
+			imagen.setAttribute('src', accionActual); 
+			setTimeout("cambiar(acciones)", 30000);
+			
+			break;
+		case bienvenida:
+			imagen.setAttribute('src', accionActual);
+			//sonido.src= 'narrativas/1.mp4';
+			setTimeout("cambiar(acciones)",8000);
+			
+			break;
+		case ojosCerrados:
+			sonido.src= 'narrativas/2.mp4';
+			imagen.setAttribute('src', accionActual); 
+			setTimeout("cambiar(acciones)",30000);
+			
+			break;
+		case instrucciones:
+			sonido.src= 'narrativas/3.mp4';
+			imagen.setAttribute('src', accionActual); 
+			setTimeout("cambiar(acciones)", 7000);
+			
+			break;
+		case ojosAbiertos:
+			sonido.src= 'narrativas/4.mp4' ;
+			imagen.setAttribute('src', accionActual); 
+			setTimeout("cambiar(acciones)", 30000);
+			
+			break;
+		case neutro:			
+			sonido.src= 'narrativas/relax.mp4';
+			imagen.setAttribute('src', accionActual); 
+			setTimeout("cambiar(acciones)", 30000);
+			
+			break;
+		case evaluacion:
+			sonido.src= 'narrativas/evaluacion.mp4';
+			imagen.setAttribute('src', accionActual); 
+			setTimeout("cambiar(acciones)", 30000);
+			
+			break;
+		case fin:
+			sonido.src= 'narrativas/8.mp4';
+			imagen.setAttribute('src', accionActual); 
+			setTimeout("cambiar(acciones)", 20000);
+			
+			break;
+		default :
+			document.querySelector("#induccion").style.display = "initial"
+		    /*sonido.src= 'narrativas/7_2.mp3' ;*/
+		    page.src=accionActual;
+			setTimeout("cambiar(acciones)", 480000);//0);
+			
+	}
+		
+	//accion=accion+1;	  
+}
+  
+    /**
+    * Función que se ejecuta una vez cargada la página
+    */
+    onload=function(){ 
+    }
+</script>
+</body>
+</html>
